@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Aplikasi Penggajian">
+    <meta name="author" content="SRI">
 
     <title>Login Aplikasi Gaji</title>
 
@@ -27,13 +27,12 @@
 <div class="container">
     <br/>
     <br/>
-    <br/>
-    <br/>
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
+            <img src="/img/logo-tut-sekolah.png" class="img-fluid" style="max-width: 150px; height: 150px; display: block; margin-left: auto; margin-right: auto;" alt="Logo Sekolah"> <br/>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -95,7 +94,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><br/>
+    <br/>
+
 </div>
 
     <!-- Bootstrap core JavaScript-->

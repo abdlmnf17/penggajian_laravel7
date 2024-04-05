@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 .env
+/resources/view/index.blade.php
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
