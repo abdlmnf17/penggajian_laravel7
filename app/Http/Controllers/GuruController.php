@@ -13,7 +13,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        return view('guru.index');
+        $guru = Guru::all();
+        return view('guru.index', compact('guru'));
     }
 
     /**
@@ -67,7 +68,12 @@ class GuruController extends Controller
      */
     public function show($id)
     {
-        //
+        $guru = Guru::find($id);
+
+        if (!$guru) {
+            return abort(404);
+        }
+        return view('guru.show', compact('guru'));
     }
 
     /**
@@ -78,7 +84,8 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        //
+        $guru = Guru::findOrFail($id);
+        return view('guru.edit', compact('guru'));
     }
 
     /**
@@ -101,6 +108,8 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $guru = Guru::findOrFail($id);
+        $guru->delete();
+        return redirect()->route('guru.index')->with('success', 'Guru berhasil dihapus.');
     }
 }

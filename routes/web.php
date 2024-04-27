@@ -21,5 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/guru', [App\Http\Controllers\GuruController::class, 'index'])->name('guru.index');
-Route::post('/guru', [App\Http\Controllers\GuruController::class, 'store'])->name('guru.store');
+Route::get('/guru/tambah', [App\Http\Controllers\GuruController::class, 'create'])->name('guru.create');
+Route::get('/guru/edit/{id}', [App\Http\Controllers\GuruController::class, 'edit'])->name('guru.edit');
+Route::post('/guru/tambah', [App\Http\Controllers\GuruController::class, 'store'])->name('guru.store');
+Route::delete('/guru/{id}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.delete');
+
 
