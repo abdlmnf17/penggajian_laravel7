@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Guru;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -13,7 +13,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        return view('guru.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.create');
     }
 
     /**
@@ -34,8 +34,30 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          // Validasi input
+          $request->validate([
+            'nm_guru' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'tgl_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'guru_mapel' => 'required|string|max:255',
+            'nm_jabatan' => 'required|string|max:255',
+        ]);
+
+        // Simpan data guru ke dalam database
+        Guru::create([
+            'nm_guru' => $request->nm_guru,
+            'alamat' => $request->alamat,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'guru_mapel' => $request->guru_mapel,
+            'nm_jabatan' => $request->nm_jabatan,
+        ]);
+
+        // Redirect ke halaman yang tepat setelah penyimpanan
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil disimpan.');
     }
+    
 
     /**
      * Display the specified resource.
