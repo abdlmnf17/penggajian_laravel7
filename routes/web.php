@@ -24,6 +24,6 @@ Route::get('/guru', [App\Http\Controllers\GuruController::class, 'index'])->name
 Route::get('/guru/tambah', [App\Http\Controllers\GuruController::class, 'create'])->name('guru.create');
 Route::get('/guru/edit/{id}', [App\Http\Controllers\GuruController::class, 'edit'])->name('guru.edit');
 Route::post('/guru/tambah', [App\Http\Controllers\GuruController::class, 'store'])->name('guru.store');
-Route::delete('/guru/{id}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.delete');
+Route::delete('/guru/hapus/{id}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.delete');
 
 

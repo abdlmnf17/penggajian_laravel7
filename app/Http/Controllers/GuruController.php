@@ -11,6 +11,11 @@ class GuruController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
     public function index()
     {
         $guru = Guru::all();
@@ -58,7 +63,7 @@ class GuruController extends Controller
         // Redirect ke halaman yang tepat setelah penyimpanan
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil disimpan.');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -106,10 +111,12 @@ class GuruController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_guru)
     {
-        $guru = Guru::findOrFail($id);
+        $guru = Guru::where('id_guru', $id_guru)->firstOrFail();
         $guru->delete();
         return redirect()->route('guru.index')->with('success', 'Guru berhasil dihapus.');
+
     }
+
 }

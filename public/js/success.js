@@ -30,7 +30,7 @@ function confirmDelete() {
             "language": {
                 "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
                 "sProcessing": "Sedang memproses...",
-                "sLengthMenu": "Tampilkan _MENU_ entri",
+                "sLengthMenu": "Tampilkan _MENU_ ",
                 "sZeroRecords": "Tidak ditemukan data yang sesuai",
                 "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
                 "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
