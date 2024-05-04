@@ -11,16 +11,19 @@
             <h4 class="m-15 font-weight-bold">DAFTAR GURU</h4>
         </div>
         <div class="card-body">
-        <!-- Menampilkan pesan kesuksesan -->
+            <!-- Menampilkan pesan kesuksesan -->
             @if(session('success'))
-                <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert">
                 {{ session('success') }}
-                </div>
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-error" role="alert">
+                {{ session('error') }}
+            </div>
             @endif
 
-
-            <table id="dataTable" class="table table-bordered"
-            cellspacing="1"><br/>
+            <table id="dataTable" class="table table-bordered" cellspacing="1"><br/>
                 <thead>
                     <tr align="center">
                         <th style="width: 5%">#</th>
@@ -44,46 +47,40 @@
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <!-- Tombol Hapus -->
-                            <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $guruItem->id_guru }}">
                                 <i class="fas fa-trash"></i> Hapus
-                            </a>
-
+                            </button>
                         </td>
                     </tr>
+
+                    <!-- Modal Konfirmasi Hapus -->
+                    <div class="modal fade" id="confirmDeleteModal{{ $guruItem->id_guru }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form method="post" action="{{ route('guru.delete', $guruItem->id_guru) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah Anda yakin ingin menghapus guru ini?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<!-- Modal Konfirmasi Hapus -->
-@foreach($guru as $index => $guruItem)
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="post" action="{{ route('guru.delete', $guruItem->id_guru) }}">
-                @csrf
-                @method('delete')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Hapus</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus guru ini?</p>
-
-                    {{-- <input type="hidden" name="guruId" value="{{ $guruItem->id_guru }}"> --}}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
 @endsection
-

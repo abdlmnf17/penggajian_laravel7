@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\GuruFactory;
 
 class Guru extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_guru'; 
+    protected $primaryKey = 'id_guru';
     protected $fillable = [
+        
         'nm_guru',
         'alamat',
         'tgl_lahir',
@@ -17,4 +19,9 @@ class Guru extends Model
         'guru_mapel',
         'nm_jabatan',
     ];
+
+    public static function factory()
+    {
+        return new GuruFactory();
+    }
 }

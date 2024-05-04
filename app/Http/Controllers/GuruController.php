@@ -90,7 +90,7 @@ class GuruController extends Controller
     public function edit($id)
     {
         $guru = Guru::findOrFail($id);
-        return view('guru.edit', compact('guru'));
+        return view('guru.update', compact('guru'));
     }
 
     /**
@@ -102,7 +102,37 @@ class GuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // Validasi input
+         $request->validate([
+            'nm_guru' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'tgl_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
+            'guru_mapel' => 'required|string|max:255',
+            'nm_jabatan' => 'required|string|max:255',
+        ]);
+
+        // Temukan guru berdasarkan ID
+        $guru = Guru::findOrFail($id);
+
+        // Perbarui data guru
+        $guru->update([
+            'nm_guru' => $request->nm_guru,
+            'alamat' => $request->alamat,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'guru_mapel' => $request->guru_mapel,
+            'nm_jabatan' => $request->nm_jabatan,
+        ]);
+
+        // Redirect ke halaman yang tepat setelah perubahan
+        if($guru) {
+            return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');
+        } else {
+            return redirect()->route('guru.index')->with('error', 'Data guru  diperbarui.');
+
+        }
+
     }
 
     /**
@@ -112,11 +142,16 @@ class GuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id_guru)
-    {
-        $guru = Guru::where('id_guru', $id_guru)->firstOrFail();
-        $guru->delete();
-        return redirect()->route('guru.index')->with('success', 'Guru berhasil dihapus.');
+{
+    $guru = Guru::findOrFail($id_guru);
+    $guru->delete();
+    if($guru) {
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus.');
+    } else {
+        return redirect()->route('guru.index')->with('error', 'Data guru gagal dihapus.');
 
     }
+}
+
 
 }
