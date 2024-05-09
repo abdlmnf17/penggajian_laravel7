@@ -21,6 +21,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//route daftar user
+Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user.index')->middleware('admin');
+Route::get('/user/tambah', [App\Http\Controllers\UserController::class, 'create'])->name('user.create')->middleware('admin');
+Route::post('/user/tambah', [App\Http\Controllers\UserController::class, 'store'])->name('user.store')->middleware('admin');
+Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit')->middleware('admin');
+Route::put('/user', [App\Http\Controllers\UserController::class, 'update'])->name('user.update')->middleware('admin');
+
+Route::delete('/user/hapus/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.delete')->middleware('admin');
+
+// route untuk guru
 Route::get('/guru', [App\Http\Controllers\GuruController::class, 'index'])->name('guru.index');
 Route::get('/guru/tambah', [App\Http\Controllers\GuruController::class, 'create'])->name('guru.create');
 Route::get('/guru/detail/{id}', [App\Http\Controllers\GuruController::class, 'show'])->name('guru.show');
@@ -30,4 +41,28 @@ Route::post('/guru/tambah', [App\Http\Controllers\GuruController::class, 'store'
 Route::delete('/guru/hapus/{id}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.delete');
 
 
+// route untuk gaji
+Route::get('/gaji', [App\Http\Controllers\GajiController::class, 'index'])->name('gaji.index');
+Route::get('/gaji/tambah', [App\Http\Controllers\GajiController::class, 'create'])->name('gaji.create');
+Route::post('/gaji/tambah', [App\Http\Controllers\GajiController::class, 'store'])->name('gaji.store');
+
+//route untuk tunjangan
+Route::get('/tunjangan', [App\Http\Controllers\TunjanganController::class, 'index'])->name('tunjangan.index');
+Route::get('/tunjangan/edit/{id}', [App\Http\Controllers\TunjanganController::class, 'edit'])->name('tunjangan.edit');
+Route::get('/tunjangan', [App\Http\Controllers\TunjanganController::class, 'index'])->name('tunjangan.index');
+Route::post('/tunjangan/edit/{id}', [App\Http\Controllers\TunjanganController::class, 'update'])->name('tunjangan.update');
+Route::get('/tunjangan/tambah', [App\Http\Controllers\TunjanganController::class, 'create'])->name('tunjangan.create');
+Route::post('/tunjangan/tambah', [App\Http\Controllers\TunjanganController::class, 'store'])->name('tunjangan.store');
+Route::delete('/tunjangan/hapus/{id}', [App\Http\Controllers\TunjanganController::class, 'destroy'])->name('tunjangan.delete');
+Route::put('/tunjangan/edit/{id}', [App\Http\Controllers\TunjanganController::class, 'update'])->name('tunjangan.update');
+
+//route untuk potongan
+Route::get('/potongan', [App\Http\Controllers\PotonganController::class, 'index'])->name('potoangan.index');
+Route::get('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'edit'])->name('potongan.edit');
+Route::get('/potongan', [App\Http\Controllers\PotonganController::class, 'index'])->name('potongan.index');
+Route::post('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'update'])->name('potongan.update');
+Route::get('/potongan/tambah', [App\Http\Controllers\PotonganController::class, 'create'])->name('potongan.create');
+Route::post('/potongan/tambah', [App\Http\Controllers\PotonganController::class, 'store'])->name('potongan.store');
+Route::delete('/potongan/hapus/{id}', [App\Http\Controllers\PotonganController::class, 'destroy'])->name('potongan.delete');
+Route::put('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'update'])->name('potongan.update');
 
