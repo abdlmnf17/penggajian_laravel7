@@ -30,10 +30,10 @@ class PotonganController extends Controller
      */
     public function create()
     {
-      
+
         return view('potongan.create'); // Kirim data guru ke view
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,7 +47,7 @@ class PotonganController extends Controller
     $validatedData = $request->validate([
         'nm_potongan' => 'nullable|string',
         'jumlah_potongan' => 'nullable|integer',
-        
+
         // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
     ]);
 
@@ -93,8 +93,7 @@ class PotonganController extends Controller
         $validatedData = $request->validate([
 
         'nm_potongann' => 'nullable|string',
-        'jumlah_potongan' => 'nullable|integer', 
-            // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
+        'jumlah_potongan' => 'nullable|integer',
         ]);
 
         $potongan = Potongan::findOrFail($id_potongan);
@@ -105,9 +104,9 @@ class PotonganController extends Controller
             'jumlah_potongan' => $request->jumlah_potongan,
 
         ]);
-            
+
         return redirect()->route('potongan.index')->with('success', 'Data potongan berhasil diperbarui.');
-        
+
     }
 
     /**

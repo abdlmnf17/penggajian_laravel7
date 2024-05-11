@@ -26,8 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user.index')->middleware('admin');
 Route::get('/user/tambah', [App\Http\Controllers\UserController::class, 'create'])->name('user.create')->middleware('admin');
 Route::post('/user/tambah', [App\Http\Controllers\UserController::class, 'store'])->name('user.store')->middleware('admin');
-Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit')->middleware('admin');
-Route::put('/user', [App\Http\Controllers\UserController::class, 'update'])->name('user.update')->middleware('admin');
+Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit')->middleware('admin');
+Route::put('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update')->middleware('admin');
 
 Route::delete('/user/hapus/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.delete')->middleware('admin');
 

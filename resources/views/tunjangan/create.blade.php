@@ -13,7 +13,7 @@
                     <form method="POST" action="{{ route('tunjangan.store') }}">
                         @csrf
 
-                        
+
                         <div class="form-group">
                             <label for="wali_kelas">Nama Jabatan:</label>
                             <input type="text" class="form-control @error('nm_tunjangan') is-invalid @enderror" id="nm_tunjangan" name="nm_tunjangan" value="{{ old('nm_tunjangan') }}">
@@ -30,7 +30,7 @@
                             @enderror
                         </div>
 
-                       
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

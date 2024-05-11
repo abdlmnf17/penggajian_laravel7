@@ -6,7 +6,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <a href="{{ route('tunjangan.create') }}" class="btn btn-primary float-right">
-                <i class="fas fa-plus"></i> Tambah Tunjangan
+                <i class="fas fa-plus"></i> Tambah 
             </a>
             <h4 class="m-15 font-weight-bold">DAFTAR TUNJANGAN</h4>
         </div>

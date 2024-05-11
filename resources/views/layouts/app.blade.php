@@ -103,7 +103,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -122,11 +122,16 @@
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Data Master</span>
+                    @php
+                    $role = auth()->user()->role;
+                    @endphp
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Data Master</h6>
+                        @if($role === 'admin')
                         <a class="collapse-item" href="/user">Data User</a>
+                        @endif
                         <a class="collapse-item" href="/guru">Data Guru</a>
                         <a class="collapse-item" href="/tunjangan">Data Tunjangan</a>
                         <a class="collapse-item" href="/potongan">Data Potongan</a>

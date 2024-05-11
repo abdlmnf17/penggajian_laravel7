@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -43,20 +44,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'nullable|string',
-            'email' => 'nullable|string',
-            'password' => 'nullable|string',
-            
-            
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+
             // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
         ]);
-    
-        // Simpan tunjangan jika validasi berhasil
-        $user = User::create($validatedData);
-    
+
+        // Simpan user jika validasi berhasil
+        // $user = User::create($validatedData);
+        User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
         // Redirect ke halaman yang sesuai setelah berhasil menyimpan
         return redirect()->route('user.index')->with('success', 'User berhasil disimpan.');
-        
+
     }
 
     /**
@@ -93,24 +99,23 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
 
-            'name' => 'nullable|string',
-            'email' => 'nullable|string', 
-            'password' => 'nullable|string', 
-                // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
-    
+
             $user = User::findOrFail($id);
-    
-            // $tunjangan = Tunjangan::update($validatedData);
+
+
             $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-    
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+
             ]);
-                
-            return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui.');
-           
+
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui.');
+
     }
 
     /**
@@ -126,6 +131,6 @@ class UserController extends Controller
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');
 
-   
+
     }
 }
