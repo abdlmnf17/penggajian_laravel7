@@ -13,7 +13,7 @@ class Potongan extends Model
      *
      * @var array
      */
-    protected $primaryKey = 'id_potongan';
+   
     protected $fillable = [
         'nm_potongan',
         'jumlah_potongan',

@@ -14,7 +14,7 @@ class Tunjangan extends Model
      *
      * @var array
      */
-    protected $primaryKey = 'id_tunjangan';
+   
     protected $fillable = [
         'nm_tunjangan',
         'jumlah_tunjangan',

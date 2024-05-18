@@ -6,7 +6,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <a href="{{ route('tunjangan.create') }}" class="btn btn-primary float-right">
-                <i class="fas fa-plus"></i> Tambah 
+                <i class="fas fa-plus"></i> Tambah
             </a>
             <h4 class="m-15 font-weight-bold">DAFTAR TUNJANGAN</h4>
         </div>
@@ -39,21 +39,21 @@
                         <td>{{ $tunjanganItem->nm_tunjangan }}</td>
                         <td>Rp. {{ $tunjanganItem->jumlah_tunjangan }}</td>
                         <td>
-                            <a href="{{ route('tunjangan.edit', $tunjanganItem->id_tunjangan) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('tunjangan.edit', $tunjanganItem->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <!-- Tombol Hapus -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $tunjanganItem->id_tunjangan }}">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $tunjanganItem->id }}">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                         </td>
                     </tr>
 
                     <!-- Modal Konfirmasi Hapus -->
-                    <div class="modal fade" id="confirmDeleteModal{{ $tunjanganItem->id_tunjangan }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $tunjanganItem->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form method="post" action="{{ route('tunjangan.delete', $tunjanganItem->id_tunjangan) }}">
+                                <form method="post" action="{{ route('tunjangan.delete', $tunjanganItem->id) }}">
                                     @csrf
                                     @method('delete')
                                     <div class="modal-header">

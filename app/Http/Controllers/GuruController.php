@@ -141,11 +141,11 @@ class GuruController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_guru)
+    public function destroy($id)
 {
-    $guru = Guru::findOrFail($id_guru);
+    $guru = Guru::findOrFail($id);
     $guru->delete();
-    
+
     if($guru) {
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus.');
     } else {

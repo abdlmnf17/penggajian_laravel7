@@ -9,7 +9,7 @@
                 <div class="card-header">Update Tunjangan</div>
 
                 <div class="card-body">
-                    <form action="{{ route('tunjangan.update', $tunjangan->id_tunjangan) }}" method="POST">
+                    <form action="{{ route('tunjangan.update', $tunjangan->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -23,7 +23,7 @@
                             <input type="number" name="jumlah_tunjangan" id="jumlah_tunjangan" class="form-control" value="{{ $tunjangan->jumlah_tunjangan }}">
                         </div>
 
-                       
+
 
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Tunjangan extends Migration
+class Akun extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class Tunjangan extends Migration
      */
     public function up()
     {
-        Schema::create('tunjangans', function (Blueprint $table) {
+        Schema::create('akun', function (Blueprint $table) {
             $table->id();
-            $table->string('nm_tunjangan');
-            $table->integer('jumlah_tunjangan');
+            $table->string('kd_akun');
+            $table->string('jenis_akun');
+            $table->string('nm_akun');
+            $table->integer('total');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -29,6 +30,6 @@ class Tunjangan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tunjangans');
+        Schema::dropIfExists('akun');
     }
 }

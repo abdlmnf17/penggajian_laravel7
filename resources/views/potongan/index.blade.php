@@ -39,21 +39,21 @@
                         <td>{{ $potonganItem->nm_potongan }}</td>
                         <td>Rp. {{ $potonganItem->jumlah_potongan }}</td>
                         <td>
-                            <a href="{{ route('potongan.edit', $potonganItem->id_potongan) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('potongan.edit', $potonganItem->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <!-- Tombol Hapus -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $potonganItem->id_potongan }}">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $potonganItem->id }}">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                         </td>
                     </tr>
 
                     <!-- Modal Konfirmasi Hapus -->
-                    <div class="modal fade" id="confirmDeleteModal{{ $potonganItem->id_potongan }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $potonganItem->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form method="post" action="{{ route('potongan.delete', $potonganItem->id_potongan) }}">
+                                <form method="post" action="{{ route('potongan.delete', $potonganItem->id) }}">
                                     @csrf
                                     @method('delete')
                                     <div class="modal-header">

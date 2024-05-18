@@ -14,9 +14,9 @@ class Potongan extends Migration
     public function up()
     {
         Schema::create('potongans', function (Blueprint $table) {
-            $table->bigIncrements('id_potongan'); 
+            $table->id();
             $table->string('nm_potongan');
-            $table->integer('jumlah_potongan');           
+            $table->integer('jumlah_potongan');
             $table->timestamps();
         });
     }

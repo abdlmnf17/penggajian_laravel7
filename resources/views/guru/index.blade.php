@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-lg-9 mb-10 mx-auto">
+<div class="col-lg-11 mb-10 mx-auto">
     <!-- Project Card Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -43,21 +43,21 @@
                         <td>{{ $guruItem->guru_mapel }}</td>
                         <td>{{ $guruItem->nm_jabatan }}</td>
                         <td>
-                            <a href="{{ route('guru.edit', $guruItem->id_guru) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('guru.edit', $guruItem->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <!-- Tombol Hapus -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $guruItem->id_guru }}">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $guruItem->id }}">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                         </td>
                     </tr>
 
                     <!-- Modal Konfirmasi Hapus -->
-                    <div class="modal fade" id="confirmDeleteModal{{ $guruItem->id_guru }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $guruItem->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form method="post" action="{{ route('guru.delete', $guruItem->id_guru) }}">
+                                <form method="post" action="{{ route('guru.delete', $guruItem->id) }}">
                                     @csrf
                                     @method('delete')
                                     <div class="modal-header">

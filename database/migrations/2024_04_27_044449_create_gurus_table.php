@@ -13,8 +13,8 @@ class CreateGurusTable extends Migration
      */
     public function up()
     {
-        Schema::create('gurus', function (Blueprint $table) {
-            $table->bigIncrements('id_guru'); 
+        Schema::create('guru', function (Blueprint $table) {
+            $table->id();
             $table->string('nm_guru');
             $table->string('alamat');
             $table->date('tgl_lahir');
@@ -32,6 +32,6 @@ class CreateGurusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gurus');
+        Schema::dropIfExists('guru');
     }
 }
