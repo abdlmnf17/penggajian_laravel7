@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Guru;
+use App\Models\Potongan;
 
 class HomeController extends Controller
 {
@@ -23,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $guru = Guru::count();
+        $potongan = Potongan::count();
 
-        
-        return view('home');
+        return view('home', \compact('guru', 'potongan'));
     }
 }

@@ -72,7 +72,7 @@
     <div class="welcome-container">
         <div class="welcome-card">
             <div class="text-center">
-                <img src="https://www.svgrepo.com/show/530450/page-analysis.svg" alt="Logo" class="welcome-logo">
+                <img src="/img/undraw_posting_photo.svg" alt="Logo" class="welcome-logo">
             </div>
             <p class="text-center">Selamat datang di Aplikasi Penggajian<br/>
             </p>
@@ -82,9 +82,9 @@
                         <a href="{{ url('/home') }}" class="btn btn-primary">Login Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-success">Log in</a>
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 @endif
             </div>

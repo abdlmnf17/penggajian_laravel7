@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-lg-9 mb-10 mx-auto">
+<div class="col-lg-10 mb-10 mx-auto">
     <!-- Project Card Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
