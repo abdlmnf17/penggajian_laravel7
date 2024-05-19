@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Tambah Gaji</div>
+                <div class="card-header">Transaksi Gaji</div>
 
                 <div class="card-body">
                     <form action="{{ route('gaji.store') }}" method="POST">
@@ -105,7 +105,7 @@
                             <label for="subtotal_display" class="col-md-4 col-form-label text-md-end">Total Gaji</label>
                             <div class="col-md-6">
                                 <input id="subtotal_display" type="text" class="form-control" value="{{ old('subtotal_display') }}" readonly>
-                                <input id="subtotal" type="hidden" name="sub_total" value="{{ old('sub_total') }}">
+                                <input id="sub_total" type="hidden" name="sub_total" value="{{ old('sub_total') }}">
                             </div>
                         </div>
 
