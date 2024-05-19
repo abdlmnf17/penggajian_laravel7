@@ -9,37 +9,17 @@
                 <div class="card-header">Tambah Gaji</div>
 
                 <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <form action="{{ route('gaji.store') }}" method="POST">
                         @csrf
 
                         <div class="form-group">
                             <label for="kd_gaji">Kode Gaji:</label>
-                            <input type="text" name="kd_gaji" id="kd_gaji" class="form-control @error('kd_gaji') is-invalid @enderror" value="{{ old('kd_gaji', 'INV/GAJI/09/2024/..') }}" required>
-                            @error('kd_gaji')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input type="text" name="kd_gaji" id="kd_gaji" class="form-control" value="{{ old('kd_gaji') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="tgl_gaji">Tanggal Gaji:</label>
-                            <input type="date" name="tgl_gaji" id="tgl_gaji" class="form-control @error('tgl_gaji') is-invalid @enderror" value="{{ old('tgl_gaji') }}">
-                            @error('tgl_gaji')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input type="date" name="tgl_gaji" id="tgl_gaji" class="form-control" value="{{ old('tgl_gaji') }}">
                         </div>
 
                         <div class="row mb-3">
@@ -48,9 +28,7 @@
                                 <select id="guru_id" class="form-control @error('guru_id') is-invalid @enderror" name="guru_id" required>
                                     <option value="">Pilih Guru</option>
                                     @foreach ($guru as $gurus)
-                                        <option value="{{ $gurus->id }}" {{ old('guru_id') == $gurus->id ? 'selected' : '' }}>
-                                            {{ $gurus->nm_guru }} ({{ $gurus->nm_jabatan }} | {{ $gurus->guru_mapel }})
-                                        </option>
+                                        <option value="{{ $gurus->id }}">{{ $gurus->nm_guru }} ({{ $gurus->nm_jabatan }} | {{ $gurus->guru_mapel }})</option>
                                     @endforeach
                                 </select>
                                 @error('guru_id')
@@ -65,19 +43,14 @@
                             <div class="row mb-3 tunjangan-row">
                                 <label for="tunjangan_1" class="col-md-4 col-form-label text-md-end">Tunjangan 1</label>
                                 <div class="col-md-6">
-                                    <select id="tunjangan_1" class="form-control tunjangan-select @error('tunjangan_ids.*') is-invalid @enderror" name="tunjangan_ids[]" required>
+                                    <select id="tunjangan_1" class="form-control tunjangan-select" name="tunjangan_ids[]" required>
                                         <option value="" data-jumlah="0">Pilih Tunjangan</option>
                                         @foreach ($tunjangan as $tunjangans)
-                                            <option value="{{ $tunjangans->id }}" data-jumlah="{{ $tunjangans->jumlah_tunjangan }}" {{ old('tunjangan_ids.0') == $tunjangans->id ? 'selected' : '' }}>
+                                            <option value="{{ $tunjangans->id }}" data-jumlah="{{ $tunjangans->jumlah_tunjangan }}">
                                                 {{ $tunjangans->nm_tunjangan }} | Rp. {{ number_format($tunjangans->jumlah_tunjangan, 2, ',', '.') }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('tunjangan_ids.*')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-primary" id="addTunjangan">
@@ -91,19 +64,14 @@
                             <div class="row mb-3 potongan-row">
                                 <label for="potongan_1" class="col-md-4 col-form-label text-md-end">Potongan 1</label>
                                 <div class="col-md-6">
-                                    <select id="potongan_1" class="form-control potongan-select @error('potongan_ids.*') is-invalid @enderror" name="potongan_ids[]" required>
+                                    <select id="potongan_1" class="form-control potongan-select" name="potongan_ids[]" required>
                                         <option value="" data-jumlah="0">Pilih Potongan</option>
                                         @foreach ($potongan as $potongans)
-                                            <option value="{{ $potongans->id }}" data-jumlah="{{ $potongans->jumlah_potongan }}" {{ old('potongan_ids.0') == $potongans->id ? 'selected' : '' }}>
+                                            <option value="{{ $potongans->id }}" data-jumlah="{{ $potongans->jumlah_potongan }}">
                                                 {{ $potongans->nm_potongan }} | Rp. {{ number_format($potongans->jumlah_potongan, 2, ',', '.') }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('potongan_ids.*')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-primary" id="addPotongan">
@@ -114,7 +82,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="jam_mengajar" class="col-md-4 col-form-label text-md-end">Jam Mengajar (1 Jam Rp.18.000)</label>
+                            <label for="jam_mengajar" class="col-md-4 col-form-label text-md-end">Jam Mengajar (1 Jam Rp.30.000)</label>
                             <div class="col-md-6">
                                 <input id="jam_mengajar" type="number" class="form-control @error('jam_mengajar') is-invalid @enderror" name="jam_mengajar" value="{{ old('jam_mengajar') }}" required>
                                 @error('jam_mengajar')
@@ -137,7 +105,7 @@
                             <label for="subtotal_display" class="col-md-4 col-form-label text-md-end">Total Gaji</label>
                             <div class="col-md-6">
                                 <input id="subtotal_display" type="text" class="form-control" value="{{ old('subtotal_display') }}" readonly>
-                                <input id="subtotal" type="hidden" name="sub_total" value="{{ old('sub_total') }}">
+                                <input id="subtotal" type="hidden" name="subtotal" value="{{ old('subtotal') }}">
                             </div>
                         </div>
 
@@ -154,7 +122,7 @@
         // Add dynamic tunjangan and potongan functionality
         var tunjanganContainer = document.getElementById('tunjangan-container');
         var addButtonTunjangan = document.getElementById('addTunjangan');
-        var tunjanganCount = {{ count(old('tunjangan_ids', [1])) }}; // get the number of old inputs
+        var tunjanganCount = 1;
 
         addButtonTunjangan.addEventListener('click', function() {
             tunjanganCount++;
@@ -172,13 +140,16 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger" onclick="removeTunjangan(this)"><i class="fas fa-trash"></i></button>
+                </div>
             `;
             tunjanganContainer.appendChild(newRow);
         });
 
         var potonganContainer = document.getElementById('potongan-container');
         var addButtonPotongan = document.getElementById('addPotongan');
-        var potonganCount = {{ count(old('potongan_ids', [1])) }}; // get the number of old inputs
+        var potonganCount = 1;
 
         addButtonPotongan.addEventListener('click', function() {
             potonganCount++;
@@ -196,9 +167,22 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger" onclick="removePotongan(this)"><i class="fas fa-trash"></i></button>
+                </div>
             `;
             potonganContainer.appendChild(newRow);
         });
+
+        window.removeTunjangan = function(btn) {
+            btn.closest('.tunjangan-row').remove();
+            updateSubtotal();
+        };
+
+        window.removePotongan = function(btn) {
+            btn.closest('.potongan-row').remove();
+            updateSubtotal();
+        };
 
         // Calculate and update gaji pokok and subtotal
         var gajiPokokDisplay = document.getElementById('gaji_pokok_display');
@@ -213,7 +197,7 @@
 
         function updateGajiPokok() {
             var jamMengajar = parseInt(jamMengajarInput.value) || 0;
-            var gajiPokokValue = jamMengajar * 18000;
+            var gajiPokokValue = jamMengajar * 30000;
             gajiPokokDisplay.value = 'Rp. ' + gajiPokokValue.toLocaleString();
             gajiPokok.value = gajiPokokValue;
             updateSubtotal();
@@ -228,10 +212,6 @@
             subtotalDisplay.value = 'Rp. ' + subtotalValue.toLocaleString();
             subtotal.value = subtotalValue;
         }
-
-        // Initialize the gaji pokok and subtotal on load
-        updateGajiPokok();
-        updateSubtotal();
     });
 </script>
 @endsection
