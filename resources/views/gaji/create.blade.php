@@ -105,7 +105,7 @@
                             <label for="subtotal_display" class="col-md-4 col-form-label text-md-end">Total Gaji</label>
                             <div class="col-md-6">
                                 <input id="subtotal_display" type="text" class="form-control" value="{{ old('subtotal_display') }}" readonly>
-                                <input id="subtotal" type="hidden" name="subtotal" value="{{ old('subtotal') }}">
+                                <input id="subtotal" type="hidden" name="sub_total" value="{{ old('sub_total') }}">
                             </div>
                         </div>
 
@@ -188,7 +188,7 @@
         var gajiPokokDisplay = document.getElementById('gaji_pokok_display');
         var gajiPokok = document.getElementById('gaji_pokok');
         var subtotalDisplay = document.getElementById('subtotal_display');
-        var subtotal = document.getElementById('subtotal');
+        var subtotal = document.getElementById('sub_total');
         var jamMengajarInput = document.getElementById('jam_mengajar');
 
         jamMengajarInput.addEventListener('input', updateGajiPokok);
