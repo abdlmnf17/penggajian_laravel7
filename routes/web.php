@@ -44,7 +44,9 @@ Route::delete('/guru/hapus/{id}', [App\Http\Controllers\GuruController::class, '
 // route untuk gaji
 Route::get('/gaji', [App\Http\Controllers\GajiController::class, 'index'])->name('gaji.index');
 Route::get('/gaji/tambah', [App\Http\Controllers\GajiController::class, 'create'])->name('gaji.create');
+Route::get('/gaji/detail/{id}', [App\Http\Controllers\GajiController::class, 'show'])->name('gaji.detail');
 Route::post('/gaji/tambah', [App\Http\Controllers\GajiController::class, 'store'])->name('gaji.store');
+Route::delete('/gaji/hapus/{id}', [App\Http\Controllers\GajiController::class, 'destroy'])->name('gaji.delete');
 
 //route untuk tunjangan
 Route::get('/tunjangan', [App\Http\Controllers\TunjanganController::class, 'index'])->name('tunjangan.index');

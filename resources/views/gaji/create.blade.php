@@ -9,48 +9,136 @@
                 <div class="card-header">Tambah Gaji</div>
 
                 <div class="card-body">
-                    <form action="{{ route('guru.store') }}" method="POST">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('gaji.store') }}" method="POST">
                         @csrf
 
                         <div class="form-group">
-                            <label for="kd_gaji">Kode_Gaji:</label>
-                            <input type="text" name="kd_gaji_gaji" id="kd_gaji" class="form-control">
+                            <label for="kd_gaji">Kode Gaji:</label>
+                            <input type="text" name="kd_gaji" id="kd_gaji" class="form-control @error('kd_gaji') is-invalid @enderror" value="{{ old('kd_gaji', 'INV/GAJI/09/2024/..') }}" required>
+                            @error('kd_gaji')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="tgl_gaji">Tanggal Gaji:</label>
-                            <input type="text" name="tgl_gaji" id="tgl_gaji" class="form-control">
+                            <input type="date" name="tgl_gaji" id="tgl_gaji" class="form-control @error('tgl_gaji') is-invalid @enderror" value="{{ old('tgl_gaji') }}">
+                            @error('tgl_gaji')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="jam_mengajar">Jam Mengajar:</label>
-                            <input type="date" name="jam_mengajar" id="jam_mengajar" class="form-control">
+                        <div class="row mb-3">
+                            <label for="guru_id" class="col-md-4 col-form-label text-md-end">Guru</label>
+                            <div class="col-md-6">
+                                <select id="guru_id" class="form-control @error('guru_id') is-invalid @enderror" name="guru_id" required>
+                                    <option value="">Pilih Guru</option>
+                                    @foreach ($guru as $gurus)
+                                        <option value="{{ $gurus->id }}" {{ old('guru_id') == $gurus->id ? 'selected' : '' }}>
+                                            {{ $gurus->nm_guru }} ({{ $gurus->nm_jabatan }} | {{ $gurus->guru_mapel }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('guru_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
-                       
-                        <div class="form-group">
-                            <label for="id_tunjangan">ID Tunjangan:</label>
-                            <input type="text" name="id_tunjangan" id="id_tunjangan" class="form-control">
+                        <div id="tunjangan-container">
+                            <div class="row mb-3 tunjangan-row">
+                                <label for="tunjangan_1" class="col-md-4 col-form-label text-md-end">Tunjangan 1</label>
+                                <div class="col-md-6">
+                                    <select id="tunjangan_1" class="form-control tunjangan-select @error('tunjangan_ids.*') is-invalid @enderror" name="tunjangan_ids[]" required>
+                                        <option value="" data-jumlah="0">Pilih Tunjangan</option>
+                                        @foreach ($tunjangan as $tunjangans)
+                                            <option value="{{ $tunjangans->id }}" data-jumlah="{{ $tunjangans->jumlah_tunjangan }}" {{ old('tunjangan_ids.0') == $tunjangans->id ? 'selected' : '' }}>
+                                                {{ $tunjangans->nm_tunjangan }} | Rp. {{ number_format($tunjangans->jumlah_tunjangan, 2, ',', '.') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('tunjangan_ids.*')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary" id="addTunjangan">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="id_potongan">ID Potongan:</label>
-                            <input type="text" name="id_potongan" id="id_potongan" class="form-control">
+                        <div id="potongan-container">
+                            <div class="row mb-3 potongan-row">
+                                <label for="potongan_1" class="col-md-4 col-form-label text-md-end">Potongan 1</label>
+                                <div class="col-md-6">
+                                    <select id="potongan_1" class="form-control potongan-select @error('potongan_ids.*') is-invalid @enderror" name="potongan_ids[]" required>
+                                        <option value="" data-jumlah="0">Pilih Potongan</option>
+                                        @foreach ($potongan as $potongans)
+                                            <option value="{{ $potongans->id }}" data-jumlah="{{ $potongans->jumlah_potongan }}" {{ old('potongan_ids.0') == $potongans->id ? 'selected' : '' }}>
+                                                {{ $potongans->nm_potongan }} | Rp. {{ number_format($potongans->jumlah_potongan, 2, ',', '.') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('potongan_ids.*')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-primary" id="addPotongan">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="id_guru">ID Guru:</label>
-                            <input type="text" name="id_potongan" id="id_guru" class="form-control">
+                        <div class="form-group row">
+                            <label for="jam_mengajar" class="col-md-4 col-form-label text-md-end">Jam Mengajar (1 Jam Rp.18.000)</label>
+                            <div class="col-md-6">
+                                <input id="jam_mengajar" type="number" class="form-control @error('jam_mengajar') is-invalid @enderror" name="jam_mengajar" value="{{ old('jam_mengajar') }}" required>
+                                @error('jam_mengajar')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="gaji_pokok">Gaji Pokok:</label>
-                            <input type="text" name="gaji_pokok" id="gaji_pokok" class="form-control">
+                        <div class="form-group row">
+                            <label for="gaji_pokok_display" class="col-md-4 col-form-label text-md-end">Gaji Pokok</label>
+                            <div class="col-md-6">
+                                <input id="gaji_pokok_display" type="text" class="form-control" value="{{ old('gaji_pokok_display') }}" readonly>
+                                <input id="gaji_pokok" type="hidden" name="gaji_pokok" value="{{ old('gaji_pokok') }}">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="sub_total">Sub Total:</label>
-                            <input type="text" name="sub_total" id="sub_total" class="form-control">
+                        <div class="form-group row">
+                            <label for="subtotal_display" class="col-md-4 col-form-label text-md-end">Total Gaji</label>
+                            <div class="col-md-6">
+                                <input id="subtotal_display" type="text" class="form-control" value="{{ old('subtotal_display') }}" readonly>
+                                <input id="subtotal" type="hidden" name="sub_total" value="{{ old('sub_total') }}">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -61,5 +149,89 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add dynamic tunjangan and potongan functionality
+        var tunjanganContainer = document.getElementById('tunjangan-container');
+        var addButtonTunjangan = document.getElementById('addTunjangan');
+        var tunjanganCount = {{ count(old('tunjangan_ids', [1])) }}; // get the number of old inputs
 
+        addButtonTunjangan.addEventListener('click', function() {
+            tunjanganCount++;
+            var newRow = document.createElement('div');
+            newRow.classList.add('row', 'mb-3', 'tunjangan-row');
+            newRow.innerHTML = `
+                <label for="tunjangan_${tunjanganCount}" class="col-md-4 col-form-label text-md-end">Tunjangan ${tunjanganCount}</label>
+                <div class="col-md-6">
+                    <select id="tunjangan_${tunjanganCount}" class="form-control tunjangan-select" name="tunjangan_ids[]" required>
+                        <option value="" data-jumlah="0">Pilih Tunjangan</option>
+                        @foreach ($tunjangan as $tunjangans)
+                            <option value="{{ $tunjangans->id }}" data-jumlah="{{ $tunjangans->jumlah_tunjangan }}">
+                                {{ $tunjangans->nm_tunjangan }} | Rp. {{ number_format($tunjangans->jumlah_tunjangan, 2, ',', '.') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            `;
+            tunjanganContainer.appendChild(newRow);
+        });
+
+        var potonganContainer = document.getElementById('potongan-container');
+        var addButtonPotongan = document.getElementById('addPotongan');
+        var potonganCount = {{ count(old('potongan_ids', [1])) }}; // get the number of old inputs
+
+        addButtonPotongan.addEventListener('click', function() {
+            potonganCount++;
+            var newRow = document.createElement('div');
+            newRow.classList.add('row', 'mb-3', 'potongan-row');
+            newRow.innerHTML = `
+                <label for="potongan_${potonganCount}" class="col-md-4 col-form-label text-md-end">Potongan ${potonganCount}</label>
+                <div class="col-md-6">
+                    <select id="potongan_${potonganCount}" class="form-control potongan-select" name="potongan_ids[]" required>
+                        <option value="" data-jumlah="0">Pilih Potongan</option>
+                        @foreach ($potongan as $potongans)
+                            <option value="{{ $potongans->id }}" data-jumlah="{{ $potongans->jumlah_potongan }}">
+                                {{ $potongans->nm_potongan }} | Rp. {{ number_format($potongans->jumlah_potongan, 2, ',', '.') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            `;
+            potonganContainer.appendChild(newRow);
+        });
+
+        // Calculate and update gaji pokok and subtotal
+        var gajiPokokDisplay = document.getElementById('gaji_pokok_display');
+        var gajiPokok = document.getElementById('gaji_pokok');
+        var subtotalDisplay = document.getElementById('subtotal_display');
+        var subtotal = document.getElementById('subtotal');
+        var jamMengajarInput = document.getElementById('jam_mengajar');
+
+        jamMengajarInput.addEventListener('input', updateGajiPokok);
+        tunjanganContainer.addEventListener('change', updateSubtotal);
+        potonganContainer.addEventListener('change', updateSubtotal);
+
+        function updateGajiPokok() {
+            var jamMengajar = parseInt(jamMengajarInput.value) || 0;
+            var gajiPokokValue = jamMengajar * 18000;
+            gajiPokokDisplay.value = 'Rp. ' + gajiPokokValue.toLocaleString();
+            gajiPokok.value = gajiPokokValue;
+            updateSubtotal();
+        }
+
+        function updateSubtotal() {
+            var tunjanganTotal = Array.from(tunjanganContainer.querySelectorAll('.tunjangan-select'))
+                .reduce((sum, select) => sum + parseInt(select.selectedOptions[0].dataset.jumlah), 0);
+            var potonganTotal = Array.from(potonganContainer.querySelectorAll('.potongan-select'))
+                .reduce((sum, select) => sum + parseInt(select.selectedOptions[0].dataset.jumlah), 0);
+            var subtotalValue = (parseInt(gajiPokok.value) || 0) + tunjanganTotal - potonganTotal;
+            subtotalDisplay.value = 'Rp. ' + subtotalValue.toLocaleString();
+            subtotal.value = subtotalValue;
+        }
+
+        // Initialize the gaji pokok and subtotal on load
+        updateGajiPokok();
+        updateSubtotal();
+    });
+</script>
 @endsection

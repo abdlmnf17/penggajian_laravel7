@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-lg-9 mb-10 mx-auto">
+<div class="col-lg-10 mb-10 mx-auto">
     <!-- Project Card Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -37,30 +37,25 @@
                     @foreach($gaji as $index => $gajiItem)
                     <tr align="center">
                         <td>{{ $index + 1 }}</td>
-                        <!-- <td>{{ $gajiItem->kd_gaji }}</td>
+                         <td>{{ $gajiItem->kd_gaji }}</td>
                         <td>{{ $gajiItem->tgl_gaji }}</td>
-                        <td>{{ $gajiItem->jam_mengajar }}</td>
-                        <td>{{ $gajiItem->id_tunjangan }}</td>
-                        <td>{{ $gajiItem->id_potongan }}</td>
-                        <td>{{ $gajiItem->id_guru }}</td>
-                        <td>{{ $gajiItem->gaji_pokok }}</td>
-                        <td>{{ $gajiItem->sub_total }}</td> -->
+                        <td>{{ $gajiItem->guru->nm_guru }}</td>
                         <td>
-                            <a href="{{ route('gaji.edit', $gajiItem->id_gaji) }}" class="btn btn-sm btn-warning">
-                                <i class="fas fa-edit"></i> Edit
+                            <a href="{{ route('gaji.detail', $gajiItem->id) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-id-card"></i> Detail
                             </a>
                             <!-- Tombol Hapus -->
-                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $gajiItem->id_gaji }}">
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $gajiItem->id }}">
                                 <i class="fas fa-trash"></i> Hapus
                             </button>
                         </td>
                     </tr>
 
                     <!-- Modal Konfirmasi Hapus -->
-                    <div class="modal fade" id="confirmDeleteModal{{ $gajiItem->id_gaji }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmDeleteModal{{ $gajiItem->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <form method="post" action="{{ route('gaji.delete', $gajiItem->id_gaji) }}">
+                                <form method="post" action="{{ route('gaji.delete', $gajiItem->id) }}">
                                     @csrf
                                     @method('delete')
                                     <div class="modal-header">

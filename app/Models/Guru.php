@@ -20,6 +20,13 @@ class Guru extends Model
         'nm_jabatan',
     ];
 
+    public function gaji()
+    {
+        return $this->hasMany(Gaji::class);
+    }
+
+
+
     public static function factory()
     {
         return new GuruFactory();

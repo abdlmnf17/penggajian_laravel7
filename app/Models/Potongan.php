@@ -13,12 +13,20 @@ class Potongan extends Model
      *
      * @var array
      */
-   
+
     protected $fillable = [
         'nm_potongan',
         'jumlah_potongan',
 
     ];
+
+
+    public function gaji()
+    {
+        return $this->belongsToMany(Gaji::class, 'gaji_potongan', 'potongan_id', 'gaji_id');
+    }
+
+
 
     /**
      * Get the guru that owns the potongan.

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Gaji;
+use App\Models\Guru;
+use App\Models\Potongan;
+use App\Models\Tunjangan;
 use Illuminate\Http\Request;
 
 class GajiController extends Controller
@@ -18,8 +21,12 @@ class GajiController extends Controller
      }
     public function index()
     {
+        $guru = Guru::all();
         $gaji = Gaji::all();
-        return view('gaji.index', compact('gaji'));
+        $potongan = Potongan::all();
+        $tunjangan = Tunjangan::all();
+
+        return view('gaji.index', compact('gaji', 'tunjangan', 'potongan', 'guru' ));
     }
 
     /**
@@ -29,7 +36,12 @@ class GajiController extends Controller
      */
     public function create()
     {
-        return view('gaji.create');
+        $guru = Guru::all();
+        $gaji = Gaji::all();
+        $potongan = Potongan::all();
+        $tunjangan = Tunjangan::all();
+
+        return view('gaji.create', compact('gaji', 'tunjangan', 'potongan', 'guru' ));
     }
 
     /**
@@ -42,31 +54,30 @@ class GajiController extends Controller
     {
           // Validasi input
           $request->validate([
-            'kd_gaji' => 'required|string|max:10',
+            'kd_gaji' => 'required|string|unique:gaji,kd_gaji|max:255',
+            'guru_id' => 'required|exists:guru,id',
             'tgl_gaji' => 'required|date',
-            'jam_mengajar' => 'required|string|max:50',
-            'id_tunjangan' =>  'required|string|max:50',
-            'id_potongan' => 'required|string|max:50',
-            'id_guru' => 'required|string|max:50',
-            'gaji_pokok' => 'required|string|max:200',
-            'sub_total' => 'required|string|max:200',
+            'jam_mengajar' => 'required|integer',
+            'gaji_pokok' => 'required|integer',
+            'sub_total' => 'required|integer',
+            'tunjangan_ids.*' => 'required|exists:tunjangans,id',
+            'potongan_ids.*' => 'required|exists:potongans,id',
+
         ]);
 
         // Simpan data gaji ke dalam database
-        Gaji::create([
-            'kd_gaji' => $request->kd_gaji,
-            'tgl_gaji' => $request->tgl_gaji,
-            'jam_mengajar' =>$request->jam_mengajar,
-            'id_tunjangan' => $request->id_tunjangan,
-            'id_potongan' => $request->id_potongan,
-            'id_guru' => $request->id_guru,
-            'gaji_pokok' => $request->gaji_pokok,
-            'sub_total' => $request->sub_total,
-            
-        ]);
 
-        // Redirect ke halaman yang tepat setelah penyimpanan
-        return redirect()->route('gaji.index')->with('success', 'Data gaji berhasil disimpan.');
+        $gaji = Gaji::create($request->except('tunjangan_ids', 'potongan_ids'));
+
+
+        // Lampirkan tunjangan yang dipilih ke entri gaji menggunakan attach
+        $tunjanganIds = collect($request->tunjangan_ids)->unique(); // Hapus duplikat tunjangan jika ada
+        $potonganIds = collect($request->potongan_ids)->unique(); // Hapus duplikat potongan jika ada
+        $gaji->tunjangan()->attach($tunjanganIds);
+        $gaji->potongan()->attach($potonganIds);
+
+    return redirect()->route('gaji.index')->with('success', 'Gaji berhasil ditambahkan');
+
     }
 
 
@@ -107,41 +118,41 @@ class GajiController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // Validasi input
-         $request->validate([
-            'kd_gaji' => 'required|string|max:10',
-            'tgl_gaji' => 'required|date',
-            'jam_mengajar' => 'required|string|max:50',
-            'id_tunjangan' =>  'required|string|max:50',
-            'id_potongan' => 'required|string|max:50',
-            'id_guru' => 'required|string|max:50',
-            'gaji_pokok' => 'required|string|max:200',
-            'sub_total' => 'required|string|max:200',
-        ]);
+        //  // Validasi input
+        //  $request->validate([
+        //     'kd_gaji' => 'required|string|max:10',
+        //     'tgl_gaji' => 'required|date',
+        //     'jam_mengajar' => 'required|string|max:50',
+        //     'id_tunjangan' =>  'required|string|max:50',
+        //     'id_potongan' => 'required|string|max:50',
+        //     'id_guru' => 'required|string|max:50',
+        //     'gaji_pokok' => 'required|string|max:200',
+        //     'sub_total' => 'required|string|max:200',
+        // ]);
 
-        // Temukan guru berdasarkan ID
-        $gaji = Gaji::findOrFail($id);
+        // // Temukan guru berdasarkan ID
+        // $gaji = Gaji::findOrFail($id);
 
-        // Perbarui data guru
-        $gaji->update([
-            'kd_gaji' => $request->kd_gaji,
-            'tgl_gaji' => $request->tgl_gaji,
-            'jam_mengajar' =>$request->jam_mengajar,
-            'id_tunjangan' => $request->id_tunjangan,
-            'id_potongan' => $request->id_potongan,
-            'id_guru' => $request->id_guru,
-            'gaji_pokok' => $request->gaji_pokok,
-            'sub_total' => $request->sub_total,
+        // // Perbarui data guru
+        // $gaji->update([
+        //     'kd_gaji' => $request->kd_gaji,
+        //     'tgl_gaji' => $request->tgl_gaji,
+        //     'jam_mengajar' =>$request->jam_mengajar,
+        //     'id_tunjangan' => $request->id_tunjangan,
+        //     'id_potongan' => $request->id_potongan,
+        //     'id_guru' => $request->id_guru,
+        //     'gaji_pokok' => $request->gaji_pokok,
+        //     'sub_total' => $request->sub_total,
 
-        ]);
+        // ]);
 
-        // Redirect ke halaman yang tepat setelah perubahan
-        if($gaji) {
-            return redirect()->route('gaji.index')->with('success', 'Data gaji berhasil diperbarui.');
-        } else {
-            return redirect()->route('gaji.index')->with('error', 'Data gaji  diperbarui.');
+        // // Redirect ke halaman yang tepat setelah perubahan
+        // if($gaji) {
+        //     return redirect()->route('gaji.index')->with('success', 'Data gaji berhasil diperbarui.');
+        // } else {
+        //     return redirect()->route('gaji.index')->with('error', 'Data gaji  diperbarui.');
 
-        }
+        // }
 
     }
 
@@ -151,16 +162,12 @@ class GajiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_gaji)
+    public function destroy($id)
 {
-    $gaji = Guru::findOrFail($id_gaji);
-    $gaji->delete();
-    if($gaji) {
-        return redirect()->route('gaji.index')->with('success', 'Data gaji berhasil dihapus.');
-    } else {
-        return redirect()->route('gaji.index')->with('error', 'Data gaji gagal dihapus.');
+    $gaji = Gaji::findOrFail($id);
+        $gaji->delete();
 
-    }
+        return redirect()->route('gaji.index')->with('success', 'Gaji berhasil dihapus');
 }
 
 
