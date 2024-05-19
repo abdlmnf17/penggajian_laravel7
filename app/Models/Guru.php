@@ -26,7 +26,6 @@ class Guru extends Model
     }
 
 
-
     public static function factory()
     {
         return new GuruFactory();
