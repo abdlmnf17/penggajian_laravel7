@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gaji extends Model
 {
     use HasFactory;
-
+    protected $table = 'gaji';
     protected $fillable = [
         'guru_id', 'gaji_pokok', 'kd_gaji',
         'tgl_gaji', 'jam_mengajar', 'sub_total',
@@ -16,23 +16,20 @@ class Gaji extends Model
 
     public function tunjangan()
     {
-        return $this->belongsToMany(Tunjangan::class, 'detail_gaji_tunjangan', 'gaji_id', 'tunjangan_id');
+        return $this->belongsToMany(Tunjangan::class, 'gaji_tunjangan', 'gaji_id', 'tunjangan_id');
     }
 
-    public function karyawan()
+    public function guru()
     {
-        return $this->belongsTo(Karyawan::class);
+        return $this->belongsTo(Guru::class);
     }
 
     public function potongan()
     {
-        return $this->belongsToMany(Potongan::class, 'detail_gaji_potongan', 'gaji_id', 'potongan_id');
+        return $this->belongsToMany(Potongan::class, 'gaji_potongan', 'gaji_id', 'potongan_id');
     }
 
-    public function honorMengajar()
-    {
-        return $this->belongsTo(HonorMengajar::class);
-    }
+   
 
     public function jurnals()
     {

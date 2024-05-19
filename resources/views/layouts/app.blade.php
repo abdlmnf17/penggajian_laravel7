@@ -92,8 +92,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-wallet"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="/img/hi.jfif" style="width: 50px"/>
                 </div>
                 <div class="sidebar-brand-text mx-3">PENGGAJIAN SEKOLAH</div>
             </a>

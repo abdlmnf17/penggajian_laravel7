@@ -68,3 +68,6 @@ Route::post('/potongan/tambah', [App\Http\Controllers\PotonganController::class,
 Route::delete('/potongan/hapus/{id}', [App\Http\Controllers\PotonganController::class, 'destroy'])->name('potongan.delete');
 Route::put('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'update'])->name('potongan.update');
 
+// Route::resource('akun', [App\Http\Controllers\AkunController::class, 'index']);
+Route::resource('akun', App\Http\Controllers\AkunController::class);
+Route::resource('jurnal', App\Http\Controllers\JurnalController::class);

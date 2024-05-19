@@ -72,7 +72,7 @@
     <div class="welcome-container">
         <div class="welcome-card">
             <div class="text-center">
-                <img src="/img/undraw_posting_photo.svg" alt="Logo" class="welcome-logo">
+                <img src="/img/hi.jfif" alt="Logo" class="welcome-logo">
             </div>
             <p class="text-center">Selamat datang di Aplikasi Penggajian<br/>
             </p>
