@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Jurnal;
 use App\Models\Akun;
 use App\Models\Gaji;
+use App\Models\Jurnal;
+use Illuminate\Http\Request;
 
 class JurnalController extends Controller
 {
@@ -42,7 +42,6 @@ class JurnalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -64,16 +63,6 @@ class JurnalController extends Controller
             'jumlah_akun_kredit' => $request->jumlah,
             'keterangan' => $request->keterangan,
         ]);
-
-        // Buat jurnal kredit
-        // $debitEntry = Jurnal::create([
-        //     'gaji_id' => $request->gaji_id,
-        //     'akun_debit_id' => $request->akun_debit_id,
-        //     'akun_kredit_id' => $request->akun_kredit_id,
-        //     'jumlah_akun_debit' => 0,
-        //     'jumlah_akun_kredit' => $request->jumlah,
-        //     'keterangan' => $request->keterangan,
-        // ]);
 
         // Update saldo akun debit
         $debitAkun = Akun::find($request->akun_debit_id);
@@ -114,7 +103,6 @@ class JurnalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -132,7 +120,8 @@ class JurnalController extends Controller
     public function destroy($id)
     {
         $jurnals = Jurnal::FindOrFail($id);
-        $jurnal->delete();
+        $jurnals->delete();
+
         return redirect()->route('jurnal.index')->with('success', 'Entri jurnal berhasil dihapus.');
     }
 }

@@ -14,7 +14,6 @@ class Tunjangan extends Model
      *
      * @var array
      */
-
     protected $fillable = [
         'nm_tunjangan',
         'jumlah_tunjangan',
@@ -26,9 +25,7 @@ class Tunjangan extends Model
         return $this->belongsToMany(Gaji::class, 'gaji_tunjangan', 'tunjangan_id', 'gaji_id');
     }
 
-
     /**
      * Get the guru that owns the tunjangan.
      */
-
 }

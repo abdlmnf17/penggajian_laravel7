@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Jurnal extends Model
 {
     use HasFactory;
+
     protected $table = 'laporan_jurnal_umum';
+
     protected $fillable = [
-    'akun_debit_id',
-    'gaji_id',
-    'akun_kredit_id',
-    'jumlah_akun_debit',
-    'jumlah_akun_kredit',
-    'keterangan',
+        'akun_debit_id',
+        'gaji_id',
+        'akun_kredit_id',
+        'jumlah_akun_debit',
+        'jumlah_akun_kredit',
+        'keterangan',
     ];
 
     public function akun()

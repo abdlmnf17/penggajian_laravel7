@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Potongan;
+use Illuminate\Http\Request;
+
 class PotonganController extends Controller
 {
     /**
@@ -11,15 +12,15 @@ class PotonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function __construct()
-     {
-         $this->middleware('auth');
-     }
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $potongan = Potongan::all();
+
         return view('potongan.index', compact('potongan'));
     }
 
@@ -34,28 +35,26 @@ class PotonganController extends Controller
         return view('potongan.create'); // Kirim data guru ke view
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-         // Validasi input menggunakan metode validate
-    $validatedData = $request->validate([
-        'nm_potongan' => 'nullable|string',
-        'jumlah_potongan' => 'nullable|integer',
+        // Validasi input menggunakan metode validate
+        $validatedData = $request->validate([
+            'nm_potongan' => 'nullable|string',
+            'jumlah_potongan' => 'nullable|integer',
 
-        // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
-    ]);
+            // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
+        ]);
 
-    // Simpan tunjangan jika validasi berhasil
-    $potongan = Potongan::create($validatedData);
+        // Simpan tunjangan jika validasi berhasil
+        $potongan = Potongan::create($validatedData);
 
-    // Redirect ke halaman yang sesuai setelah berhasil menyimpan
-    return redirect()->route('potongan.index')->with('success', 'Potongan berhasil disimpan.');
+        // Redirect ke halaman yang sesuai setelah berhasil menyimpan
+        return redirect()->route('potongan.index')->with('success', 'Potongan berhasil disimpan.');
     }
 
     /**
@@ -78,13 +77,13 @@ class PotonganController extends Controller
     public function edit($id)
     {
         $potongan = Potongan::findOrFail($id);
+
         return view('potongan.update', compact('potongan'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -92,8 +91,8 @@ class PotonganController extends Controller
     {
         $validatedData = $request->validate([
 
-        'nm_potongann' => 'nullable|string',
-        'jumlah_potongan' => 'nullable|integer',
+            'nm_potongann' => 'nullable|string',
+            'jumlah_potongan' => 'nullable|integer',
         ]);
 
         $potongan = Potongan::findOrFail($id_potongan);
@@ -120,11 +119,11 @@ class PotonganController extends Controller
         $potongan = Potongan::findOrFail($id_potongan);
         $potongan->delete();
 
-    if($potongan) {
-        return redirect()->route('potongan.index')->with('success', 'Data potongan berhasil dihapus.');
-    } else {
-        return redirect()->route('potongan.index')->with('error', 'Data potongan gagal dihapus.');
+        if ($potongan) {
+            return redirect()->route('potongan.index')->with('success', 'Data potongan berhasil dihapus.');
+        } else {
+            return redirect()->route('potongan.index')->with('error', 'Data potongan gagal dihapus.');
 
-    }
+        }
     }
 }

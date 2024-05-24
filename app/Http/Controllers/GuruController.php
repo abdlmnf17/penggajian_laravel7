@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Guru;
 use Illuminate\Http\Request;
 
@@ -11,14 +12,15 @@ class GuruController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
     public function index()
     {
         $guru = Guru::all();
+
         return view('guru.index', compact('guru'));
     }
 
@@ -35,13 +37,12 @@ class GuruController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-          // Validasi input
-          $request->validate([
+        // Validasi input
+        $request->validate([
             'nm_guru' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'tgl_lahir' => 'required|date',
@@ -64,7 +65,6 @@ class GuruController extends Controller
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil disimpan.');
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -75,9 +75,10 @@ class GuruController extends Controller
     {
         $guru = Guru::find($id);
 
-        if (!$guru) {
+        if (! $guru) {
             return abort(404);
         }
+
         return view('guru.show', compact('guru'));
     }
 
@@ -90,20 +91,20 @@ class GuruController extends Controller
     public function edit($id)
     {
         $guru = Guru::findOrFail($id);
+
         return view('guru.update', compact('guru'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-         // Validasi input
-         $request->validate([
+        // Validasi input
+        $request->validate([
             'nm_guru' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'tgl_lahir' => 'required|date',
@@ -126,7 +127,7 @@ class GuruController extends Controller
         ]);
 
         // Redirect ke halaman yang tepat setelah perubahan
-        if($guru) {
+        if ($guru) {
             return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');
         } else {
             return redirect()->route('guru.index')->with('error', 'Data guru  diperbarui.');
@@ -142,17 +143,15 @@ class GuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-{
-    $guru = Guru::findOrFail($id);
-    $guru->delete();
+    {
+        $guru = Guru::findOrFail($id);
+        $guru->delete();
 
-    if($guru) {
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus.');
-    } else {
-        return redirect()->route('guru.index')->with('error', 'Data guru gagal dihapus.');
+        if ($guru) {
+            return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus.');
+        } else {
+            return redirect()->route('guru.index')->with('error', 'Data guru gagal dihapus.');
 
+        }
     }
-}
-
-
 }

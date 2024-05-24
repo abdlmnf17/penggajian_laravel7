@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Gaji;
 use App\Models\Guru;
 use App\Models\Potongan;
@@ -14,11 +15,11 @@ class GajiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
     public function index()
     {
         $guru = Guru::all();
@@ -26,7 +27,7 @@ class GajiController extends Controller
         $potongan = Potongan::all();
         $tunjangan = Tunjangan::all();
 
-        return view('gaji.index', compact('gaji', 'tunjangan', 'potongan', 'guru' ));
+        return view('gaji.index', compact('gaji', 'tunjangan', 'potongan', 'guru'));
     }
 
     /**
@@ -41,19 +42,18 @@ class GajiController extends Controller
         $potongan = Potongan::all();
         $tunjangan = Tunjangan::all();
 
-        return view('gaji.create', compact('gaji', 'tunjangan', 'potongan', 'guru' ));
+        return view('gaji.create', compact('gaji', 'tunjangan', 'potongan', 'guru'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-          // Validasi input
-          $request->validate([
+        // Validasi input
+        $request->validate([
             'kd_gaji' => 'required|string|unique:gaji,kd_gaji|max:255',
             'guru_id' => 'required|exists:guru,id',
             'tgl_gaji' => 'required|date',
@@ -69,17 +69,15 @@ class GajiController extends Controller
 
         $gaji = Gaji::create($request->except('tunjangan_ids', 'potongan_ids'));
 
-
         // Lampirkan tunjangan yang dipilih ke entri gaji menggunakan attach
         $tunjanganIds = collect($request->tunjangan_ids)->unique(); // Hapus duplikat tunjangan jika ada
         $potonganIds = collect($request->potongan_ids)->unique(); // Hapus duplikat potongan jika ada
         $gaji->tunjangan()->attach($tunjanganIds);
         $gaji->potongan()->attach($potonganIds);
 
-    return redirect()->route('gaji.index')->with('success', 'Gaji berhasil ditambahkan');
+        return redirect()->route('gaji.index')->with('success', 'Gaji berhasil ditambahkan');
 
     }
-
 
     /**
      * Display the specified resource.
@@ -91,9 +89,10 @@ class GajiController extends Controller
     {
         $gaji = Gaji::find($id);
 
-        if (!$gaji) {
+        if (! $gaji) {
             return abort(404);
         }
+
         return view('gaji.show', compact('gaji'));
     }
 
@@ -106,13 +105,13 @@ class GajiController extends Controller
     public function edit($id)
     {
         $gaji = Gaji::findOrFail($id);
+
         return view('gaji.update', compact('gaji'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -163,14 +162,10 @@ class GajiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-{
-    $gaji = Gaji::findOrFail($id);
+    {
+        $gaji = Gaji::findOrFail($id);
         $gaji->delete();
 
         return redirect()->route('gaji.index')->with('success', 'Gaji berhasil dihapus');
+    }
 }
-
-
-}
-
-

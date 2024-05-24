@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +39,6 @@ Route::put('/guru/edit/{id}', [App\Http\Controllers\GuruController::class, 'upda
 Route::post('/guru/tambah', [App\Http\Controllers\GuruController::class, 'store'])->name('guru.store');
 Route::delete('/guru/hapus/{id}', [App\Http\Controllers\GuruController::class, 'destroy'])->name('guru.delete');
 
-
 // route untuk gaji
 Route::get('/gaji', [App\Http\Controllers\GajiController::class, 'index'])->name('gaji.index');
 Route::get('/gaji/tambah', [App\Http\Controllers\GajiController::class, 'create'])->name('gaji.create');
@@ -59,7 +57,7 @@ Route::delete('/tunjangan/hapus/{id}', [App\Http\Controllers\TunjanganController
 Route::put('/tunjangan/edit/{id}', [App\Http\Controllers\TunjanganController::class, 'update'])->name('tunjangan.update');
 
 //route untuk potongan
-Route::get('/potongan', [App\Http\Controllers\PotonganController::class, 'index'])->name('potoangan.index');
+Route::get('/potongan', [App\Http\Controllers\PotonganController::class, 'index'])->name('potongan.index');
 Route::get('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'edit'])->name('potongan.edit');
 Route::get('/potongan', [App\Http\Controllers\PotonganController::class, 'index'])->name('potongan.index');
 Route::post('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'update'])->name('potongan.update');
@@ -68,6 +66,14 @@ Route::post('/potongan/tambah', [App\Http\Controllers\PotonganController::class,
 Route::delete('/potongan/hapus/{id}', [App\Http\Controllers\PotonganController::class, 'destroy'])->name('potongan.delete');
 Route::put('/potongan/edit/{id}', [App\Http\Controllers\PotonganController::class, 'update'])->name('potongan.update');
 
-// Route::resource('akun', [App\Http\Controllers\AkunController::class, 'index']);
-Route::resource('akun', App\Http\Controllers\AkunController::class);
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('akun', App\Http\Controllers\AkunController::class);
+});
+
 Route::resource('jurnal', App\Http\Controllers\JurnalController::class);
+
+Route::get('/cetak-gaji/{id}', [App\Http\Controllers\CetakGajiController::class, 'cetak'])->name('cetak');
+
+Route::get('/jurnal-laporan', [App\Http\Controllers\JurnalLaporanController::class, 'index'])->name('jurnal.laporan');
+
+Route::post('/jurnal-laporan-pdf', [App\Http\Controllers\JurnalLaporanController::class, 'JurnalPdf'])->name('jurnal.laporan.pdf');

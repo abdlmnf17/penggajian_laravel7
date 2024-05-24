@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\GuruFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Database\Factories\GuruFactory;
 
 class Guru extends Model
 {
     use HasFactory;
+
     protected $table = 'guru';
+
     protected $fillable = [
 
         'nm_guru',
@@ -24,7 +26,6 @@ class Guru extends Model
     {
         return $this->hasMany(Gaji::class);
     }
-
 
     public static function factory()
     {

@@ -2,10 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 use App\Models\Guru;
-
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GuruFactory extends Factory
 {
@@ -15,6 +13,7 @@ class GuruFactory extends Factory
      * @return array
      */
     protected $model = Guru::class;
+
     public function definition()
     {
         return [

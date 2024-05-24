@@ -21,7 +21,6 @@ class Tunjangan extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      *

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Akun;
+use App\Models\Gaji;
 use App\Models\Guru;
 use App\Models\Potongan;
 
@@ -27,7 +28,10 @@ class HomeController extends Controller
     {
         $guru = Guru::count();
         $potongan = Potongan::count();
+        $gaji = Gaji::sum('sub_total');
 
-        return view('home', \compact('guru', 'potongan'));
+        $akunKas = Akun::where('nm_akun', 'Kas')->sum('total');
+
+        return view('home', compact('guru', 'potongan', 'gaji', 'akunKas'));
     }
 }

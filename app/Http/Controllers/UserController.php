@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -13,15 +13,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $user = User::all();
+
         return view('user.index', compact('user'));
     }
 
@@ -38,7 +38,6 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,7 +46,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-
 
             // Tambahkan validasi untuk kolom lainnya sesuai kebutuhan
         ]);
@@ -85,13 +83,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+
         return view('user.update', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -102,17 +100,16 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ]);
+        ]);
 
-            $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
+        $user->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
 
-            $user->update([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'password' => Hash::make($validatedData['password']),
-
-            ]);
+        ]);
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui.');
 
@@ -130,7 +127,6 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.index')->with('success', 'Data user berhasil dihapus.');
-
 
     }
 }

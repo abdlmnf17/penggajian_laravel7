@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-lg-9 mb-10 mx-auto">
+    <div class="col-lg-7 mb-10 mx-auto">
         <!-- Menampilkan pesan kesuksesan -->
         @if (session('success'))
             <div class="alert alert-warning alert-dismissible">
@@ -37,19 +37,19 @@
             <div class="card-body">
                 <form action="{{ route('jurnal.store') }}" method="POST">
                     @csrf
-                 
+
                     <div class="form-group">
                         <label for="gaji_id">Kode Gaji:</label>
                         <select name="gaji_id" id="gaji_id" class="form-control" onchange="updateJumlah()">
+                            <option value="" data-jumlah="0">Pilih Transaksi</option>
                             @foreach ($gajis as $gaji)
-                                <option value="" data-jumlah="0">Pilih Gaji</option>
                                 <option value="{{ $gaji->id }}" data-jumlah="{{ $gaji->sub_total }}">
                                     {{ $gaji->kd_gaji }} | {{ $gaji->guru->nm_guru }} | Rp.
                                     {{ number_format($gaji->sub_total, 2, ',', '.') }} </option>
                             @endforeach
                         </select>
                     </div>
-                   
+
                     <div class="form-group">
                         <label for="akun_debit_id">Akun Debit:</label>
 
