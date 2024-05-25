@@ -27,11 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $guru = Guru::count();
-        $potongan = Potongan::count();
         $gaji = Gaji::sum('sub_total');
 
         $akunKas = Akun::where('nm_akun', 'Kas')->sum('total');
 
-        return view('home', compact('guru', 'potongan', 'gaji', 'akunKas'));
+        return view('home', compact('guru', 'gaji', 'akunKas'));
     }
 }
