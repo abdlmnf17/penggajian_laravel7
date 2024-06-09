@@ -11,10 +11,10 @@
                     <form method="POST" action="{{ route('potongan.store') }}">
                         @csrf
 
-                        
+
                         <div class="form-group">
                             <label for="wali_kelas">Nama Potongan:</label>
-                            <input type="text" class="form-control @error('nm_potongan') is-invalid @enderror" id="nm_potongan" name="nm_potongan" value="{{ old('nm_potongan') }}">
+                            <input type="text" class="form-control @error('nm_potongan') is-invalid @enderror" id="nm_potongan" name="nm_potongan" value="{{ old('nm_potongan') }}" required>
                             @error('nm_potongan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -22,13 +22,13 @@
 
                         <div class="form-group">
                             <label for="kependidikan">Jumlah Potongan:</label>
-                            <input type="number" class="form-control @error('jumlah_potongan') is-invalid @enderror" id="jumlah_potongan" name="jumlah_potongan" value="{{ old('jumlah_potongan') }}">
+                            <input type="number" class="form-control @error('jumlah_potongan') is-invalid @enderror" id="jumlah_potongan" name="jumlah_potongan" value="{{ old('jumlah_potongan') }}" required>
                             @error('jumlah_potongan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                       
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

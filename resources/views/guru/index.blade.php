@@ -30,7 +30,7 @@
                         <th style="width: 20%">Nama Guru</th>
                         <th style="width: 15%">Alamat</th>
                         <th style="width: 15%">Mapel</th>
-                        <th style="width: 15%">Jabatan</th>
+
                         <th style="width: 20%">Aksi</th>
                     </tr>
                 </thead>
@@ -41,7 +41,7 @@
                         <td>{{ $guruItem->nm_guru }}</td>
                         <td>{{ $guruItem->alamat }}</td>
                         <td>{{ $guruItem->guru_mapel }}</td>
-                        <td>{{ $guruItem->nm_jabatan }}</td>
+                       
                         <td>
                             <a href="{{ route('guru.edit', $guruItem->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> Edit

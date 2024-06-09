@@ -20,7 +20,6 @@ class CreateGurusTable extends Migration
             $table->date('tgl_lahir');
             $table->string('jenis_kelamin');
             $table->string('guru_mapel');
-            $table->string('nm_jabatan');
             $table->timestamps();
         });
     }

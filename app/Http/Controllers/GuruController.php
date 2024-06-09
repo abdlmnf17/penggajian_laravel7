@@ -48,7 +48,7 @@ class GuruController extends Controller
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
             'guru_mapel' => 'required|string|max:255',
-            'nm_jabatan' => 'required|string|max:255',
+
         ]);
 
         // Simpan data guru ke dalam database
@@ -58,7 +58,7 @@ class GuruController extends Controller
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'guru_mapel' => $request->guru_mapel,
-            'nm_jabatan' => $request->nm_jabatan,
+
         ]);
 
         // Redirect ke halaman yang tepat setelah penyimpanan
@@ -110,7 +110,7 @@ class GuruController extends Controller
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
             'guru_mapel' => 'required|string|max:255',
-            'nm_jabatan' => 'required|string|max:255',
+
         ]);
 
         // Temukan guru berdasarkan ID
@@ -123,14 +123,14 @@ class GuruController extends Controller
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'guru_mapel' => $request->guru_mapel,
-            'nm_jabatan' => $request->nm_jabatan,
+
         ]);
 
         // Redirect ke halaman yang tepat setelah perubahan
         if ($guru) {
             return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');
         } else {
-            return redirect()->route('guru.index')->with('error', 'Data guru  diperbarui.');
+            return redirect()->route('guru.index')->with('error', 'Data guru gagal diperbarui.');
 
         }
 

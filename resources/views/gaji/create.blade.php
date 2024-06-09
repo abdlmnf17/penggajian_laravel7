@@ -14,7 +14,7 @@
 
                         <div class="form-group">
                             <label for="kd_gaji">Kode Gaji:</label>
-                            <input type="text" name="kd_gaji" id="kd_gaji" class="form-control" value="{{ old('kd_gaji') }}" required>
+                            <input type="text" name="kd_gaji" id="kd_gaji" class="form-control" value="{{ $no_trans }}" required>
                         </div>
 
                         <div class="form-group">

@@ -16,7 +16,7 @@
 
                         <div class="form-group">
                             <label for="wali_kelas">Nama Jabatan:</label>
-                            <input type="text" class="form-control @error('nm_tunjangan') is-invalid @enderror" id="nm_tunjangan" name="nm_tunjangan" value="{{ old('nm_tunjangan') }}">
+                            <input type="text" class="form-control @error('nm_tunjangan') is-invalid @enderror" id="nm_tunjangan" name="nm_tunjangan" value="{{ old('nm_tunjangan') }}" required>
                             @error('nm_tunjangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <label for="kependidikan">Jumlah Tunjangan:</label>
-                            <input type="number" class="form-control @error('jumlah_tunjangan') is-invalid @enderror" id="jumlah_tunjangan" name="jumlah_tunjangan" value="{{ old('jumlah_tunjangan') }}">
+                            <input type="number" class="form-control @error('jumlah_tunjangan') is-invalid @enderror" id="jumlah_tunjangan" name="jumlah_tunjangan" value="{{ old('jumlah_tunjangan') }}" required>
                             @error('jumlah_tunjangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

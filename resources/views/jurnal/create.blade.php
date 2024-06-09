@@ -40,7 +40,7 @@
 
                     <div class="form-group">
                         <label for="gaji_id">Kode Gaji:</label>
-                        <select name="gaji_id" id="gaji_id" class="form-control" onchange="updateJumlah()">
+                        <select name="gaji_id" id="gaji_id" class="form-control" onchange="updateJumlah()" required>
                             <option value="" data-jumlah="0">Pilih Transaksi</option>
                             @foreach ($gajis as $gaji)
                                 <option value="{{ $gaji->id }}" data-jumlah="{{ $gaji->sub_total }}">
@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label for="akun_debit_id">Akun Debit:</label>
 
-                        <select name="akun_debit_id" id="akun_debit_id" class="form-control">
+                        <select name="akun_debit_id" id="akun_debit_id" class="form-control" required>
                             <option value="" data-jumlah="0">Pilih Akun</option>
                             @foreach ($akuns as $akun)
                                 <option value="{{ $akun->id }}">{{ $akun->nm_akun }}</option>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label for="akun_kredit_id">Akun Kredit:</label>
-                        <select name="akun_kredit_id" id="akun_kredit_id" class="form-control">
+                        <select name="akun_kredit_id" id="akun_kredit_id" class="form-control" required>
                             <option value="" data-jumlah="0">Pilih Akun</option>
                             @foreach ($akuns as $akun)
                                 <option value="{{ $akun->id }}">{{ $akun->nm_akun }}</option>

@@ -13,8 +13,10 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
-    'sekolah' => env('SEKOLAH', 'Laravel'),
+    'name' => env('APP_NAME', 'WEB PENGGAJIAN'),
+    'sekolah' => env('SEKOLAH', 'MTS'),
+    'kepalasekolah' => env('KEPALA_SEKOLAH', 'MTS'),
+    'tahun_pelajaran' => env('TAHUN_PELAJARAN', '2024'),
 
     /*
     |--------------------------------------------------------------------------

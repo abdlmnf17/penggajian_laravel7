@@ -28,10 +28,7 @@
                                         <strong>Guru:</strong>
                                         <p>{{ $gaji->guru->nm_guru }}</p>
                                     </div>
-                                    <div class="col-md-6">
-                                        <strong>Jabatan:</strong>
-                                        <p>{{ $gaji->guru->nm_jabatan }}</p>
-                                    </div>
+                                
                                     <div class="col-md-6">
                                         <strong>Mata Pelajaran:</strong>
                                         <p>{{ $gaji->guru->guru_mapel }}</p>
