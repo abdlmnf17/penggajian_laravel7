@@ -41,10 +41,7 @@
                             <input type="text" name="guru_mapel" id="guru_mapel" class="form-control" value="{{ $guru->guru_mapel }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="nm_jabatan">Nama Jabatan:</label>
-                            <input type="text" name="nm_jabatan" id="nm_jabatan" class="form-control" value="{{ $guru->nm_jabatan }}">
-                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

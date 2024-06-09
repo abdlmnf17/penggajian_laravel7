@@ -58,60 +58,89 @@
             <div class="sidebar-heading">
                 MENU
             </div>
-
+            @php
+            $role = auth()->user()->role;
+        @endphp
             <!-- Nav Item - Pages Collapse Menu -->
+            @if ($role === 'admin')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwotr"
+                    aria-expanded="true" aria-controls="collapseTwotr">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Hak Akses</span>
+
+                </a>
+                <div id="collapseTwotr" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Hak Akses</h6>
+
+                            <a class="collapse-item" href="/user">Data User</a>
+
+                    </div>
+                </div>
+            </li>
+            @endif
+
+            @if ($role === 'user')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Data Master</span>
-                    @php
-                        $role = auth()->user()->role;
-                    @endphp
+
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Master</h6>
-                        @if ($role === 'admin')
-                            <a class="collapse-item" href="/user">Data User</a>
-                            <a class="collapse-item" href="/akun">Data Akun</a>
-                        @endif
+
+                        <a class="collapse-item" href="/akun">Data Akun</a>
+
                         <a class="collapse-item" href="/guru">Data Guru</a>
-                        <a class="collapse-item" href="/tunjangan">Data Tunjangan</a>
-                        <a class="collapse-item" href="/potongan">Data Potongan</a>
+
                     </div>
                 </div>
             </li>
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Data Transaksi</span>
+                    <span>Transaksi Gaji</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Transaksi</h6>
+                        <h6 class="collapse-header">Data Gaji</h6>
+                        <a class="collapse-item" href="/tunjangan">Data Tunjangan</a>
+                        <a class="collapse-item" href="/potongan">Data Potongan</a>
+
+                    </div>
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Transaksi</h6>
                         <a class="collapse-item" href="/gaji">Penggajian</a>
-                        <a class="collapse-item" href="/jurnal/create">Jurnal Umum</a>
 
                     </div>
                 </div>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse"
                     data-target="#collapseUtilitiesLaporan" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-comment-dollar"></i>
-                    <span>Data Laporan</span>
+                    <span>Jurnal & Laporan</span>
                 </a>
                 <div id="collapseUtilitiesLaporan" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Laporan </h6>
-                        <a class="collapse-item" href="/jurnal">Laporan Jurnal</a>
-                        <a class="collapse-item" href="/jurnal-laporan">Cetak Laporan</a>
+                        <h6 class="collapse-header">Laporan Jurnal</h6>
+                        <a class="collapse-item" href="/jurnal">Entri Jurnal</a>
+                        <a class="collapse-item" href="/jurnal-laporan">Cetak Laporan Jurnal</a>
+
+                    </div>
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Laporan Penggajian</h6>
+                        <a class="collapse-item" href="/gaji-laporan">Laporan Gaji</a>
 
                     </div>
                 </div>

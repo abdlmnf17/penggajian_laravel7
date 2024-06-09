@@ -52,7 +52,7 @@
         th,
         td {
             padding: 10px;
-            border: 1px solid #ffffff;
+            border: 1px solid #454545;
         }
 
         th {
@@ -117,8 +117,8 @@
     <div class="container">
         <div class="watermark"></div>
         <h2>STRUK PEMBAYARAN HONOR</h2>
-        <h2>MTs HIDAYATUL ISLAMIYAH</h2>
-        <h3>TAHUN PELAJARAN 2024</h3>
+        <h2>{{ config('app.sekolah', 'Laravel') }}</h2>
+        <h3>TAHUN PELAJARAN {{ config('app.tahun_pelajaran', 'Laravel') }}</h3>
 
         <table>
             <tbody>
@@ -134,10 +134,7 @@
                     <th scope="row">Nama</th>
                     <td><b>{{ $gaji->guru->nm_guru }}</b></td>
                 </tr>
-                <tr>
-                    <th scope="row">Jabatan</th>
-                    <td>{{ $gaji->guru->nm_jabatan }}</td>
-                </tr>
+                
                 <tr>
                     <th scope="row">Bidang Studi</th>
                     <td>{{ $gaji->guru->guru_mapel }}</td>
@@ -198,7 +195,7 @@
                <br />
                <br/>
 
-                <p><u>Ahmad Lutfi, S.Pd. I</u></p>
+                <p><u>{{ config('app.kepalasekolah', 'Laravel') }}</u></p>
             </div>
         </div>
     </div>

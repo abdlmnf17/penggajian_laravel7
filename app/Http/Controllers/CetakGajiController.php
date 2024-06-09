@@ -13,6 +13,6 @@ class CetakGajiController extends Controller
 
         $pdf = PDF::loadView('cetak-gaji.pdf', compact('gaji'));
 
-        return $pdf->download('slip_gaji_'.$gaji->kd_gaji.'_'.$gaji->guru->nm_guru.'.pdf');
+        return $pdf->stream('slip_gaji_'.$gaji->kd_gaji.'_'.$gaji->guru->nm_guru.'.pdf');
     }
 }

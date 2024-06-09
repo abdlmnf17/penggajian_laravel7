@@ -19,7 +19,7 @@ class Guru extends Model
         'tgl_lahir',
         'jenis_kelamin',
         'guru_mapel',
-        'nm_jabatan',
+    
     ];
 
     public function gaji()
