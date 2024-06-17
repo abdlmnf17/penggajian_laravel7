@@ -42,12 +42,12 @@ class GajiController extends Controller
         $potongan = Potongan::all();
         $tunjangan = Tunjangan::all();
          $tanggal = now();
-         $no_trans = "PENGGAJIAN/HONOR/" . $tanggal->format('m-Y') . "/";
+         $no_trans = "PENGGAJIAN/" . $tanggal->format('m-Y') . "/";
          $last_trans = Gaji::where('kd_gaji', 'like', $no_trans . '%')->orderBy('created_at', 'desc')->first();
 
          // Jika nomor transaksi sudah ada di database, tambahkan angka di belakangnya
          if ($last_trans) {
-             $last_no = explode('/', $last_trans->no_trans);
+             $last_no = explode('/', $last_trans->kd_gaji);
              $last_num = intval(end($last_no));
              $no_trans .= str_pad($last_num + 1, 2, '0', STR_PAD_LEFT);
          } else {
