@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 <label for="kd_gaji">Kode Gaji:</label>
                                 <input type="text" name="kd_gaji" id="kd_gaji"
-                                    class="form-control @error('kd_gaji') is-invalid @enderror" value="{{ old('kd_gaji') }}"
+                                    class="form-control @error('kd_gaji') is-invalid @enderror" value="{{ $no_trans }}"
                                     required>
                                 @error('kd_gaji')
                                     <span class="invalid-feedback" role="alert">
