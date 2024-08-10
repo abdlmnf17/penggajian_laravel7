@@ -9,71 +9,115 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             background-color: #ffffff;
-            margin: 0;
+            margin: 10px;
             padding: 0;
         }
 
         .container {
-            position: relative;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 15px;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
             overflow: hidden;
         }
 
-        .watermark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('{{ public_path('img/hi.jfif') }}') center center no-repeat;
-            background-size: cover;
-            opacity: 0.1;
-            z-index: -1;
+        .header {
+            overflow: hidden;
+            /* Clearfix for floated elements */
+            margin-bottom: 20px;
         }
 
-        h2,
-        h3 {
+        .header img {
+            float: left;
+            max-width: 65px;
+            margin-right: 20px;
+        }
+
+        .header .text {
+            overflow: hidden;
             text-align: center;
+            align-items: center;
+            align-content: center;
+        }
+
+        .header .text h2,
+        .header .text h3 {
             margin: 0;
-            padding: 5px 0;
+            padding: 0;
+            text-align: center;
+            align-items: center;
+            align-content: center;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 10px 0;
+            font-size: 18px;
+            border: none;
         }
 
         th,
         td {
-            padding: 10px;
-            border: 1px solid #454545;
-        }
-
-        th {
-
-            font-weight: bold;
+            padding: 3px;
             text-align: left;
         }
 
-        .list-group {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .list-group-item {
-            padding: 5px 0;
-            border-bottom: 1px solid #ffffff;
-        }
-
-        .list-group-item:last-child {
+        th {
+            font-weight: bold;
+            border-top: none;
             border-bottom: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        td {
+            vertical-align: top;
+            border-top: none;
+            border-bottom: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .amount {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .section-title {
+            font-weight: bold;
+            text-align: left;
+            padding-top: 8px;
+        }
+
+        .section-subtitle {
+            font-weight: bold;
+            text-align: left;
+            padding-bottom: 4px;
+        }
+
+        .bottom-border {
+            border-bottom: 3px solid #141414;
+        }
+
+        .amount-label {
+            text-align: right;
+            padding-right: 8px;
+            white-space: nowrap;
+            width: 50px;
+        }
+
+        .description {
+            white-space: nowrap;
+        }
+
+        .indent-label {
+            padding-left: 3px;
+        }
+
+        .indent-amount {
+            padding-left: 8px;
         }
 
         .signature-section {
@@ -84,17 +128,12 @@
 
         .signature {
             text-align: right;
+            font-size: 14px;
         }
 
         .signature .line {
             border-top: 1px solid #000;
             margin-top: 60px;
-        }
-
-        .total-row th,
-        .total-row td {
-            text-align: right;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -115,86 +154,97 @@
         }
     @endphp
     <div class="container">
-        <div class="watermark"></div>
-        <h2>STRUK PEMBAYARAN HONOR</h2>
-        <h2>{{ config('app.sekolah', 'Laravel') }}</h2>
-        <h3>TAHUN PELAJARAN {{ config('app.tahun_pelajaran', 'Laravel') }}</h3>
+        <div class="header">
+            <img src="{{ public_path('img/hi.jfif') }}" alt="Logo">
+            <div class="text">
+                <h2>STRUK PEMBAYARAN HONOR</h2>
+                <h3>MTs HIDAYATUL ISLAMIYAH</h3>
+                <h3>TAHUN PELAJARAN 2022/2023</h3>
+            </div>
+        </div>
 
         <table>
             <tbody>
                 <tr>
-                    <th scope="row">Kode Gaji</th>
-                    <td>{{ $gaji->kd_gaji }}</td>
+                    <th>Kode/Bulan</th>
+                    <td>: {{ $gaji->kd_gaji }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">Tanggal Gaji</th>
-                    <td>{{ $gaji->tgl_gaji }}</td>
+                    <th>Nama</th>
+                    <td>: {{ $gaji->guru->nm_guru }}</td>
                 </tr>
-                <tr>
-                    <th scope="row">Nama</th>
-                    <td><b>{{ $gaji->guru->nm_guru }}</b></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">Bidang Studi</th>
-                    <td>{{ $gaji->guru->guru_mapel }}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Honor Mengajar / Jam</th>
-                    <td><b>{{ $gaji->jam_mengajar }} x 30.000</b></td>
-                </tr>
-                <tr class="total-row">
-                    <th scope="row"><u>JUMLAH</u></th>
-                    <td><u>Rp. {{ number_format($gaji->gaji_pokok, 2, ',', '.') }}</u></td>
-                </tr>
-                <tr>
-                    <th scope="row">Tunjangan</th>
-                    <td>
-                        <ul class="list-group">
-                            @foreach ($gaji->tunjangan as $tunjangans)
-                                <li class="list-group-item">{{ $tunjangans->nm_tunjangan }}: Rp.
-                                    {{ number_format($tunjangans->jumlah_tunjangan, 2, ',', '.') }}</li>
-                            @endforeach
-                        </ul>
-                    </td>
-                </tr>
+            </tbody>
+        </table>
 
-                <tr class="total-row">
-                    <th scope="row"><u>JUMLAH TUNJANGAN</u></th>
-                    <td>Rp. <u><b>{{ number_format($totalTunjangan, 2, ',', '.') }}</b></u></td>
-                </tr>
-
+        <div class="section-title">PENERIMAAN</div>
+        <table>
+            <tbody>
                 <tr>
-                    <th scope="row">Potongan</th>
-                    <td>
-                        <ul class="list-group">
-                            @foreach ($gaji->potongan as $potongans)
-                                <li class="list-group-item">{{ $potongans->nm_potongan }}: Rp.
-                                    {{ number_format($potongans->jumlah_potongan, 2, ',', '.') }}</li>
-                            @endforeach
-                        </ul>
-                    </td>
+                    <td class="description">I. Honor Mengajar / Jam:</td>
+                    <td class="amount-label">{{ $gaji->jam_mengajar }} x Rp. 30.000</td>
+
                 </tr>
-                <tr class="total-row">
-                    <th scope="row"><u>JUMLAH POTONGAN</u></th>
-                    <td>Rp. <u><b>{{ number_format($totalPotongan, 2, ',', '.') }}</b></u></td>
+                <tr class="bottom-border">
+                    <td class="section-subtitle">JUMLAH</td>
+                    <td class="amount-label indent-label">Rp</td>
+                    <td class="amount indent-amount">{{ number_format($gaji->gaji_pokok, 2, ',', '.') }}</td>
                 </tr>
-                <tr class="total-row">
-                    <th scope="row"><u>JUMLAH BERSIH</u></th>
-                    <td>Rp. <u><b>{{ number_format($gaji->sub_total, 2, ',', '.') }}</b></u></td>
+            </tbody>
+        </table>
+
+        <div class="section-title">TUNJANGAN</div>
+        <table>
+            <tbody>
+                @foreach ($gaji->tunjangan as $tunjangans)
+                    <tr>
+                        <td class="description">{{ $loop->iteration }}. {{ $tunjangans->nm_tunjangan }}</td>
+                        <td class="amount-label">Rp</td>
+                        <td class="amount">{{ number_format($tunjangans->jumlah_tunjangan, 2, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+                <tr class="bottom-border">
+                    <td class="section-subtitle">JUMLAH</td>
+                    <td class="amount-label indent-label">Rp</td>
+                    <td class="amount indent-amount">{{ number_format($totalTunjangan, 2, ',', '.') }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">POTONGAN</div>
+        <table>
+            <tbody>
+                @foreach ($gaji->potongan as $potongans)
+                    <tr>
+                        <td class="description">{{ $loop->iteration }}. {{ $potongans->nm_potongan }}</td>
+                        <td class="amount-label">Rp</td>
+                        <td class="amount">{{ number_format($potongans->jumlah_potongan, 2, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+                <tr class="bottom-border">
+                    <td class="section-subtitle">JUMLAH</td>
+                    <td class="amount-label indent-label">Rp</td>
+                    <td class="amount indent-amount">{{ number_format($totalPotongan, 2, ',', '.') }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <tbody>
+                <tr class="bottom-border">
+                    <td class="section-subtitle">SISA PEMBAYARAN</td>
+                    <td class="amount-label indent-label">Rp</td>
+                    <td class="amount indent-amount">{{ number_format($gaji->sub_total, 2, ',', '.') }}</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="signature-section">
             <div class="signature">
-                <p>Jatibaru, <?php echo $currentDate; ?></p>
+                <p>Jatibaru, {{ $currentDate }}</p>
                 <p>Kepala Sekolah</p>
-                <p></p>
-               <br/>
-               <br />
-               <br/>
-
+                <br />
+                <br />
+                <br />
                 <p><u>{{ config('app.kepalasekolah', 'Laravel') }}</u></p>
             </div>
         </div>
