@@ -11,6 +11,7 @@
             background-color: #ffffff;
             margin: 10px;
             padding: 0;
+            font-size: 18px;
         }
 
         .container {
@@ -192,7 +193,7 @@
             </tbody>
         </table>
 
-        <div class="section-title">TUNJANGAN</div>
+        <div class="decription">II. Tunjangan</div>
         <table>
             <tbody>
                 @foreach ($gaji->tunjangan as $tunjangans)
